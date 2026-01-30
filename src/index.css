@@ -1,0 +1,298 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Retro Theme Colors */
+    --background: 45 30% 96%; /* Cream */
+    --foreground: 0 0% 10%; /* Near black */
+    --card: 45 30% 98%;
+    --card-foreground: 0 0% 10%;
+    --popover: 45 30% 98%;
+    --popover-foreground: 0 0% 10%;
+    --primary: 45 100% 51%; /* Yellow/Gold */
+    --primary-foreground: 0 0% 10%;
+    --secondary: 45 20% 90%;
+    --secondary-foreground: 0 0% 10%;
+    --muted: 45 15% 92%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 45 100% 51%;
+    --accent-foreground: 0 0% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 45 100% 51%;
+    --radius: 0.5rem;
+
+    /* Custom retro colors */
+    --retro-cream: #F5F0E1;
+    --retro-yellow: #F5C518;
+    --retro-black: #1A1A1A;
+    --retro-gray: #E8E3D4;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-[#F5F0E1] text-[#1A1A1A];
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Custom Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes float-delayed {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(245, 197, 24, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(245, 197, 24, 0.6); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 5s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.5s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.3s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 2s ease-in-out infinite;
+}
+
+.animate-wiggle {
+  animation: wiggle 0.5s ease-in-out;
+}
+
+/* Retro Card Style */
+.retro-card {
+  background: #FFFDF7;
+  border: 3px solid #1A1A1A;
+  border-radius: 12px;
+  box-shadow: 6px 6px 0px #1A1A1A;
+  transition: all 0.2s ease;
+}
+
+.retro-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0px #1A1A1A;
+}
+
+.retro-card-yellow {
+  background: #F5C518;
+  border: 3px solid #1A1A1A;
+  border-radius: 12px;
+  box-shadow: 6px 6px 0px #1A1A1A;
+}
+
+/* Retro Button */
+.retro-btn {
+  background: #F5C518;
+  border: 3px solid #1A1A1A;
+  border-radius: 8px;
+  box-shadow: 4px 4px 0px #1A1A1A;
+  font-weight: 700;
+  transition: all 0.15s ease;
+}
+
+.retro-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px #1A1A1A;
+}
+
+.retro-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #1A1A1A;
+}
+
+.retro-btn-outline {
+  background: #FFFDF7;
+  border: 3px solid #1A1A1A;
+  border-radius: 8px;
+  box-shadow: 4px 4px 0px #1A1A1A;
+  font-weight: 700;
+  transition: all 0.15s ease;
+}
+
+.retro-btn-outline:hover {
+  background: #F5F0E1;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px #1A1A1A;
+}
+
+/* Retro Input */
+.retro-input {
+  background: #FFFDF7;
+  border: 2px solid #1A1A1A;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.retro-input:focus {
+  outline: none;
+  border-color: #F5C518;
+  box-shadow: 0 0 0 3px rgba(245, 197, 24, 0.3);
+}
+
+/* Retro Checkbox */
+.retro-checkbox {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #1A1A1A;
+  border-radius: 4px;
+  background: #FFFDF7;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.retro-checkbox:checked {
+  background: #F5C518;
+  border-color: #1A1A1A;
+}
+
+/* Retro Tag */
+.retro-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  background: #FFFDF7;
+  border: 2px solid #1A1A1A;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.retro-tag:hover {
+  background: #F5F0E1;
+}
+
+.retro-tag.selected {
+  background: #F5C518;
+  border-color: #1A1A1A;
+}
+
+/* Score ring */
+.score-ring {
+  transform: rotate(-90deg);
+}
+
+.score-ring-bg {
+  stroke: #E8E3D4;
+}
+
+.score-ring-progress {
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s ease-out;
+}
+
+/* Hover effects */
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translate(-2px, -2px);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F5F0E1;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1A1A1A;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
+
+/* Section divider */
+.retro-divider {
+  border-top: 2px dashed #1A1A1A;
+  margin: 24px 0;
+}
+
+/* Badge */
+.retro-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  background: #F5C518;
+  border: 2px solid #1A1A1A;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Pattern background */
+.pattern-dots {
+  background-image: radial-gradient(#1A1A1A 1px, transparent 1px);
+  background-size: 20px 20px;
+}
