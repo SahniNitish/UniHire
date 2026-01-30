@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import {
   Loader2,
   Sparkles,
@@ -12,13 +12,14 @@ import {
   Briefcase,
   ArrowRight
 } from 'lucide-react';
-import { getJob, addCandidate } from '@/lib/supabase';
+import { getJob, addCandidate, decodeJobData } from '@/lib/supabase';
 import { extractTextFromFile } from '@/lib/utils';
 import { analyzeResume } from '@/lib/ai';
 import { saveAnalysis } from '@/lib/supabase';
 
 export default function ApplyPage() {
   const { jobId } = useParams<{ jobId: string }>();
+  const [searchParams] = useSearchParams();
 
   const [job, setJob] = useState<any>(null);
   const [loading, setLoading] = useState(false);
@@ -38,7 +39,24 @@ export default function ApplyPage() {
     const fetchJob = async () => {
       if (!jobId) return;
       try {
-        const jobData = await getJob(jobId);
+        // First try to get from localStorage
+        let jobData = await getJob(jobId);
+
+        // If not found, try to decode from URL parameter
+        if (!jobData) {
+          const encodedData = searchParams.get('data');
+          if (encodedData) {
+            const decodedJob = decodeJobData(encodedData);
+            if (decodedJob && decodedJob.id === jobId) {
+              jobData = {
+                ...decodedJob,
+                created_at: new Date().toISOString(),
+                shareable_link: window.location.href,
+              };
+            }
+          }
+        }
+
         setJob(jobData);
       } catch (err) {
         console.error('Error fetching job:', err);
@@ -47,7 +65,7 @@ export default function ApplyPage() {
       }
     };
     fetchJob();
-  }, [jobId]);
+  }, [jobId, searchParams]);
 
   const handleFileChange = async (file: File | null) => {
     if (!file) return;

@@ -44,16 +44,35 @@ const saveStorage = () => {
 
 loadStorage();
 
+// Encode job data for shareable link (so it works across browsers)
+const encodeJobData = (job: { id: string; title: string; description: string }) => {
+  const data = JSON.stringify({ id: job.id, title: job.title, description: job.description });
+  return btoa(encodeURIComponent(data));
+};
+
+// Decode job data from URL parameter
+export const decodeJobData = (encoded: string): { id: string; title: string; description: string } | null => {
+  try {
+    const data = decodeURIComponent(atob(encoded));
+    return JSON.parse(data);
+  } catch {
+    return null;
+  }
+};
+
 export const createJob = async (title: string, description: string): Promise<Job> => {
   const id = Math.random().toString(36).substring(2, 15);
+  const jobData = { id, title, description };
+  const encodedData = encodeJobData(jobData);
+
   const job: Job = {
     id,
     title,
     description,
     created_at: new Date().toISOString(),
-    shareable_link: `${window.location.origin}/apply/${id}`,
+    shareable_link: `${window.location.origin}/apply/${id}?data=${encodedData}`,
   };
-  
+
   if (supabase) {
     const { data, error } = await supabase.from('jobs').insert(job).select().single();
     if (error) throw error;
